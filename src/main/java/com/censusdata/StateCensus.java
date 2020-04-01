@@ -3,20 +3,31 @@ package com.censusdata;
 import com.opencsv.bean.CsvBindByName;
 
 public class StateCensus {
-    @CsvBindByName(column = "State")
-    private String stateName;
+//    @CsvBindByName(column = "State")
+//    private String stateName;
+//
+//    @CsvBindByName(column = "Population",required = true)
+//    private String population;
+//
+//    @CsvBindByName(column = "AreaInSqKm")
+//    private String areaInSqKm;
+//
+//    @CsvBindByName(column = "DensityPerSqKm", required = true)
+//    private String densityPerSqKm;
 
-    @CsvBindByName(column = "Population",required = true)
-    private String population;
 
-    @CsvBindByName(column = "AreaInSqKm")
-    private String areaInSqKm;
 
-    @CsvBindByName(column = "DensityPerSqKm", required = true)
-    private String densityPerSqKm;
+    @CsvBindByName(column = "SrNo", required = true)
+    public int srNo;
 
-    @CsvBindByName(column = "Tin")
-    private int tin;
+    @CsvBindByName(column = "State Name", required = true)
+    public String stName;
+
+    @CsvBindByName(column = "TIN", required = true)
+    public int tin;
+
+    @CsvBindByName(column = "StateCode", required = true)
+    public String stCode;
 
     public StateCensus() {
 
@@ -63,11 +74,14 @@ public class StateCensus {
 
     @Override
     public String toString() {
-        return  "stateName='" + stateName + '\'' +
-                ", population='" + population + '\'' +
-                ", areaInSqKm='" + areaInSqKm + '\'' +
-                ", densityPerSqKm='" + densityPerSqKm + '\''+
-                ", Tin='" + tin + '\''
-                +"\n";
+        return  //"stateName='" + stateName + '\'' +
+                //", population='" + population + '\'' +
+                //", areaInSqKm='" + areaInSqKm + '\'' +
+                //", densityPerSqKm='" + densityPerSqKm + '\''+
+                ", srNo='" + srNo + '\''+
+                ", stName='" + stName + '\''+
+                ", tin='" + tin + '\''+
+                ", stCode='" + stCode + '\''
+                 +"\n";
     }
 }

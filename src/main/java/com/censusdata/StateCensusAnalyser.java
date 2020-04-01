@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.stream.StreamSupport;
 
 public class StateCensusAnalyser {
 
@@ -16,7 +17,7 @@ public class StateCensusAnalyser {
     }
 
     public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
-        int counter = 0;
+        int counter = 1;
         try {
             Iterator<Object> myIterator = getIterator(csvFilePath, myClass);
             while ( myIterator.hasNext() ) {
@@ -56,4 +57,28 @@ public class StateCensusAnalyser {
                     "Some other IO related exception");
         }
     }
-}
+
+    public static int loadStateCode(String STATECODES_CSVFILE) throws CensusAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(STATECODES_CSVFILE))) {
+            CsvToBeanBuilder<StateCensus> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+            csvToBeanBuilder.withType(StateCensus.class);
+            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+            CsvToBean<StateCensus> csvToBean = csvToBeanBuilder.build();
+            Iterator<StateCensus> censusCSVIterator = csvToBean.iterator();
+            Iterable<StateCensus> iterable = () -> censusCSVIterator;
+            int namOfEateries = (int) StreamSupport.stream(iterable.spliterator(), false).count();
+           // System.out.println("Nub of states"+namOfEateries);
+            return namOfEateries;
+
+        } catch (IOException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (IllegalStateException e) {
+            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
+        }
+
+    }
+
+
+    }
+

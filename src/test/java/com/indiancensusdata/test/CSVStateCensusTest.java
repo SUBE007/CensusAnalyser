@@ -15,18 +15,18 @@ public class CSVStateCensusTest {
     public static final String WRONG_FILE_PATH = "/Wrongfile.txt";
 
     @Test
-    public void GivenTheStateCodesCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws IOException {
+    public void GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws IOException {
         try {
             int count = StateCensusAnalyser.openCsvBuilder(STATECENSUS_CSVFILE, StateCensus.class);
-            System.out.println(count);
-            Assert.assertEquals(29, count);
+            //System.out.println(count);
+            Assert.assertEquals(30, count);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void GivenTheStateCensusCsvFile_IfDoesNotExist_ShouldThrowCensusAnalyserException() throws IOException {
+    public void GivenTheStateCodeCsvFile_IfDoesNotExist_ShouldThrowCensusAnalyserException() throws IOException {
         try {
             int count = StateCensusAnalyser.openCsvBuilder(WRONG_FILE_PATH, StateCensus.class);
         } catch (CensusAnalyserException e) {
@@ -36,7 +36,7 @@ public class CSVStateCensusTest {
     }
 
     @Test
-    public void GivenTheStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException() throws IOException {
+    public void GivenTheStateCodeCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException() throws IOException {
         try {
             int count = StateCensusAnalyser.openCsvBuilder(STATECODES_CSVFILE, StateCensus.class);
         } catch (CensusAnalyserException e) {
@@ -46,9 +46,9 @@ public class CSVStateCensusTest {
     }
 
     @Test
-    public void GivenTheStateCensusCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException() throws IOException {
+    public void GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException() throws IOException {
         try {
-            int count = StateCensusAnalyser.openCsvBuilder(STATECENSUS_CSVFILE, StateCensus.class);
+            int count = StateCensusAnalyser.openCsvBuilder(STATECODES_CSVFILE, StateCensus.class);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
             Assert.assertEquals(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE, e.type);
@@ -57,13 +57,26 @@ public class CSVStateCensusTest {
     }
 
     @Test
-    public void whenCorrectCensusCSVFile_ButHeaderIncorrect_ShouldReturnFalse() throws IOException {
+    public void whenCorrectStateCodeCSVFile_ButHeaderIncorrect_ShouldReturnFalse() throws IOException {
         try {
-            int count = StateCensusAnalyser.openCsvBuilder(STATECENSUS_CSVFILE, StateCensus.class);
+            int count = StateCensusAnalyser.openCsvBuilder(STATECODES_CSVFILE, StateCensus.class);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
             Assert.assertEquals(CensusAnalyserException.CensusExceptionType.INCORRECT_DATA_ISSUE, e.type);
         }
     }
 
+
+    @Test
+    public void givenIndianStateCSV_shouldReturnExactCount() throws CensusAnalyserException{
+        try {
+//            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+//            int numOfStateCode = censusAnalyser.loadStateCode(STATECODES_CSVFILE);
+            int numOfStateCode = StateCensusAnalyser.loadStateCode(STATECODES_CSVFILE);
+            Assert.assertEquals(37,numOfStateCode);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+
+    }
 }
