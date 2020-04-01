@@ -16,7 +16,7 @@ public class CSVStateCensusTest {
     public static final String WRONG_FILE_PATH = "/Wrongfile.txt";
 
     @Test
-    public void GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws IOException {
+    public void GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws CensusAnalyserException {
 
         try {
             StateCensusAnalyser analyse=new StateCensusAnalyser();
