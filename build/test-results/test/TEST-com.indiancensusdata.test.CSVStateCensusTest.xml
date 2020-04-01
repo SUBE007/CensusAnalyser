@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.indiancensusdata.test.CSVStateCensusTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-01T19:56:39" hostname="SUBE-DELL" time="0.388">
+<testsuite name="com.indiancensusdata.test.CSVStateCensusTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-01T20:33:03" hostname="SUBE-DELL" time="0.515">
   <properties/>
-  <testcase name="GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException" classname="com.indiancensusdata.test.CSVStateCensusTest" time="0.388"/>
+  <testcase name="GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException" classname="com.indiancensusdata.test.CSVStateCensusTest" time="0.515"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
