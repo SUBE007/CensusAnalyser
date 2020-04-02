@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e8006f1-dc9d-40df-bf4d-a675c5a91aff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/CensusAnalyserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/CensusAnalyserException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/ICSVBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/ICSVBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/OpenCSVBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/OpenCSVBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/StateCensusAnalyser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/StateCensusAnalyser.java" afterDir="false" />
@@ -205,22 +204,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="534" height="546" key="DebuggerActiveHint/0.0.1366.728@0.0.1366.728" timestamp="1585670907880" />
-    <state width="1310" height="141" key="GridCell.Tab.0.bottom" timestamp="1585773181728">
+    <state width="1310" height="219" key="GridCell.Tab.0.bottom" timestamp="1585773932374">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="141" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585773181728" />
-    <state width="1310" height="141" key="GridCell.Tab.0.center" timestamp="1585773181728">
+    <state width="1310" height="219" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585773932374" />
+    <state width="1310" height="219" key="GridCell.Tab.0.center" timestamp="1585773932358">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="141" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585773181728" />
-    <state width="1310" height="141" key="GridCell.Tab.0.left" timestamp="1585773181728">
+    <state width="1310" height="219" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585773932358" />
+    <state width="1310" height="219" key="GridCell.Tab.0.left" timestamp="1585773932342">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="141" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585773181728" />
-    <state width="1310" height="141" key="GridCell.Tab.0.right" timestamp="1585773181728">
+    <state width="1310" height="219" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585773932342" />
+    <state width="1310" height="219" key="GridCell.Tab.0.right" timestamp="1585773932374">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="141" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585773181728" />
+    <state width="1310" height="219" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585773932374" />
     <state width="1310" height="7" key="GridCell.Tab.1.bottom" timestamp="1585763640352">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -241,5 +240,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="75" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1585745750276" />
+    <state x="262" y="-1" width="840" height="1034" key="search.everywhere.popup" timestamp="1585805197071">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="262" y="-1" width="840" height="1034" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1585805197071" />
   </component>
 </project>
