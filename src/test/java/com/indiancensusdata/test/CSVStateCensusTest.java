@@ -1,8 +1,10 @@
 package com.indiancensusdata.test;
 
 import com.censusdata.CensusAnalyserException;
+import com.censusdata.StateCensusCsv;
 import com.censusdata.StateCodeCSV;
 import com.censusdata.StateCensusAnalyser;
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -76,6 +78,30 @@ public class CSVStateCensusTest {
             Assert.assertEquals(CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
 
+    }
+
+    @Test
+    public void givenStateCensusData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult() {
+        try {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(STATECENSUS_CSVFILE);
+            StateCensusCsv[] censusCSV = new Gson().fromJson(sortedCensusData, StateCensusCsv[].class);
+            Assert.assertEquals("Andhra Pradesh", censusCSV[0].stateName);
+        }catch (CensusAnalyserException e){
+
+        }
+    }
+
+    @Test
+    public void givenStateCensusData_WhenSortedOnStateFromLast_ShouldReturnSortedResult() {
+        try {
+            StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(STATECENSUS_CSVFILE);
+            StateCensusCsv[] censusCSV = new Gson().fromJson(sortedCensusData, StateCensusCsv[].class);
+            Assert.assertEquals("West Bengal", censusCSV[28].stateName);
+        }catch (CensusAnalyserException e){
+
+        }
     }
 
 }

@@ -5,18 +5,18 @@ import com.opencsv.bean.CsvBindByName;
 public class StateCensusCsv {
 
     @CsvBindByName(column = "State")
-    private String stateName;
+    public String stateName;
 
     @CsvBindByName(column = "Population",required = true)
-    private String population;
+    public String population;
 
     @CsvBindByName(column = "AreaInSqKm")
-    private String areaInSqKm;
+    public String areaInSqKm;
 
     @CsvBindByName(column = "DensityPerSqKm", required = true)
-    private String densityPerSqKm;
+    public String densityPerSqKm;
 
-      public String getStateName() {
+    public String getStateName() {
         return stateName;
     }
 
