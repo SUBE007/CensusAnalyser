@@ -72,13 +72,13 @@ public class CSVStateCensusTest {
     }
 
     @Test
-    public void givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList() {
+      public void givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList() {
         try {
             StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
             stateCensusAnalyser.loadIndiaCensusData(STATECENSUS_CSVFILE);
-            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulation();
+            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulationDensity();
             CensusDAO[] stateCensuses = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
-            Assert.assertEquals("Sikkim", stateCensuses[28].state);
+            Assert.assertEquals("Sikkim", stateCensuses[0].state);
         } catch (CSVBuilderException e) {
             e.printStackTrace();
         } catch (CensusAnalyserException e) {
@@ -91,9 +91,9 @@ public class CSVStateCensusTest {
         try {
             StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
             stateCensusAnalyser.loadIndiaCensusData(STATECENSUS_CSVFILE);
-            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulation();
+            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulationDensity();
             CensusDAO[] stateCensuses = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
-            Assert.assertEquals("Uttar Pradesh", stateCensuses[0].state);
+            Assert.assertEquals("Sikkim", stateCensuses[0].state);
         } catch (CSVBuilderException e) {
             e.printStackTrace();
         } catch (CensusAnalyserException e) {

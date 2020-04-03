@@ -4,7 +4,7 @@ public class CensusDAO {
 
     public static String state;
     public String  areaInSqKm ;
-    public String  densityPerSqKm;
+    public static String  densityPerSqKm;
     public String population;
     public String stateCode;
     public String srNo;
