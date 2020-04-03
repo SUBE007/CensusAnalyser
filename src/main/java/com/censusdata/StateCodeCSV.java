@@ -5,26 +5,47 @@ import com.opencsv.bean.CsvBindByName;
 public class StateCodeCSV {
 
     @CsvBindByName(column = "SrNo", required = true)
-    public int srNo;
+    public String srNo;
 
     @CsvBindByName(column = "State Name", required = true)
     public String stName;
 
     @CsvBindByName(column = "TIN", required = true)
-    public int tin;
+    public String tin;
 
     @CsvBindByName(column = "StateCode", required = true)
     public String stCode;
 
+
     public StateCodeCSV() {
 
     }
-    public int getTin(){
-        return tin;
+    public String getSrNo() {
+        return srNo;
+    }
+    public void setSrNo(String srNo) {
+        srNo = srNo;
     }
 
-    public void setTin(int tin){
+    public String getStateName() {
+        return stName;
+    }
+    public void setStateName(String stateName) {
+        stName = stateName;
+    }
+
+    public String getTin(){
+        return tin;
+    }
+    public void setTin(String tin){
         this.tin=tin;
+    }
+
+    public String getStateCode() {
+        return stCode;
+    }
+    public void setStateCode(String stateCode) {
+        stCode = stateCode;
     }
 
     @Override

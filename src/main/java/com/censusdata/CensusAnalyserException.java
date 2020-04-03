@@ -7,8 +7,8 @@ public class CensusAnalyserException extends Exception{
     }
 
     public enum CensusExceptionType{
-        NO_SUCH_FILE, INCORRECT_DATA_ISSUE, CSV_FILE_INTERNAL_ISSUES,
-        SOME_OTHER_IO_EXCEPTION, DELIMITER_ISSUE,
+        NO_SUCH_FILE, INCORRECT_DATA_ISSUE,
+         DELIMITER_ISSUE,NO_CENSUS_DATA,
         NO_SUCH_CLASS,CENSUS_FILE_PROBLEM , UNABLE_TO_PARSE
 
     }

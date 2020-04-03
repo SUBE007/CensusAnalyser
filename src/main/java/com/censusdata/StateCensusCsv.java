@@ -50,10 +50,10 @@ public class StateCensusCsv {
 
     @Override
     public String toString() {
-        return  "stateName='" + stateName + '\'' +
-                ", population='" + population + '\'' +
-                ", areaInSqKm='" + areaInSqKm + '\'' +
-                ", densityPerSqKm='" + densityPerSqKm + '\''
+        return  "StateName='" + stateName + '\'' +
+                ", Population='" + population + '\'' +
+                ", AreaInSqKm='" + areaInSqKm + '\'' +
+                ", DensityPerSqKm='" + densityPerSqKm + '\''
                 +"\n";
     }
 }
