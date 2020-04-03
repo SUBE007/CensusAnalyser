@@ -1,6 +1,7 @@
 package com.indiancensusdata.test;
 
 import com.censusdata.*;
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -37,6 +38,9 @@ public class CSVStateCensusTest {
             e.printStackTrace();
             Assert.assertEquals(CensusAnalyserException.CensusExceptionType.INCORRECT_DATA_ISSUE, e.type);
         }
+        catch (CSVBuilderException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -47,8 +51,9 @@ public class CSVStateCensusTest {
             exceptionRule.expect(CensusAnalyserException.class);
             stateCensusAnalyser.loadStateCode(WRONG_FILE_PATH);
         } catch (CensusAnalyserException e) {
+             Assert.assertEquals(CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }catch (CSVBuilderException e) {
             e.printStackTrace();
-            Assert.assertEquals(CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
 
@@ -66,9 +71,35 @@ public class CSVStateCensusTest {
         }
     }
 
+    @Test
+    public void givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList() {
+        try {
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            stateCensusAnalyser.loadIndiaCensusData(STATECENSUS_CSVFILE);
+            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulation();
+            CensusDAO[] stateCensuses = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
+            Assert.assertEquals("Sikkim", stateCensuses[28].state);
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
-
-
+    @Test
+    public void givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2() {
+        try {
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            stateCensusAnalyser.loadIndiaCensusData(STATECENSUS_CSVFILE);
+            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedSPopulation();
+            CensusDAO[] stateCensuses = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
+            Assert.assertEquals("Uttar Pradesh", stateCensuses[0].state);
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

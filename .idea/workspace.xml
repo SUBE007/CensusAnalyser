@@ -63,27 +63,7 @@
       <recent name="E:\BridgrLabz\IndianCensusAnalyser\src\test\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CSVStateCensusTest.GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException">
-    <configuration name="CSVStateCensusTest.GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2">
     <configuration name="CSVStateCensusTest.GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -104,12 +84,52 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="CSVStateCensusTest.givenIndianStateCSV_shouldReturnExactCount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CSVStateCensusTest.givenIndianStateCencusData_WhenSortedOnPopulation_ShouldReturnSortedList" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.givenIndianStateCSV_shouldReturnExactCount&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.givenIndianStateCencusData_WhenSortedOnPopulation_ShouldReturnSortedList&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -144,33 +164,13 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="CSVStateCensusTest.givenStateCsvData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.indiancensusdata.test.CSVStateCensusTest.givenStateCsvData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2" />
+        <item itemvalue="Gradle.CSVStateCensusTest.givenIndianStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList" />
+        <item itemvalue="Gradle.CSVStateCensusTest.givenIndianStateCencusData_WhenSortedOnPopulation_ShouldReturnSortedList" />
         <item itemvalue="Gradle.CSVStateCensusTest.GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException" />
         <item itemvalue="Gradle.CSVStateCensusTest.givenStateCensusData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult" />
-        <item itemvalue="Gradle.CSVStateCensusTest.givenStateCsvData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult" />
-        <item itemvalue="Gradle.CSVStateCensusTest.givenIndianStateCSV_shouldReturnExactCount" />
-        <item itemvalue="Gradle.CSVStateCensusTest.GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue" />
       </list>
     </recent_temporary>
   </component>
@@ -204,38 +204,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="534" height="546" key="DebuggerActiveHint/0.0.1366.728@0.0.1366.728" timestamp="1585670907880" />
-    <state width="1310" height="237" key="GridCell.Tab.0.bottom" timestamp="1585937296245">
+    <state width="1310" height="66" key="GridCell.Tab.0.bottom" timestamp="1585940549730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="237" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585937296245" />
-    <state width="1310" height="237" key="GridCell.Tab.0.center" timestamp="1585937296245">
+    <state width="1310" height="66" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585940549730" />
+    <state width="1310" height="66" key="GridCell.Tab.0.center" timestamp="1585940549730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="237" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585937296245" />
-    <state width="1310" height="237" key="GridCell.Tab.0.left" timestamp="1585937296245">
+    <state width="1310" height="66" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585940549730" />
+    <state width="1310" height="66" key="GridCell.Tab.0.left" timestamp="1585940549730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="237" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585937296245" />
-    <state width="1310" height="237" key="GridCell.Tab.0.right" timestamp="1585937296245">
+    <state width="1310" height="66" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585940549730" />
+    <state width="1310" height="66" key="GridCell.Tab.0.right" timestamp="1585940549730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="237" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585937296245" />
-    <state width="1310" height="232" key="GridCell.Tab.1.bottom" timestamp="1585853779886">
+    <state width="1310" height="66" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585940549730" />
+    <state width="1310" height="227" key="GridCell.Tab.1.bottom" timestamp="1585939838168">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="232" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585853779886" />
-    <state width="1310" height="232" key="GridCell.Tab.1.center" timestamp="1585853779870">
+    <state width="1310" height="227" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585939838168" />
+    <state width="1310" height="227" key="GridCell.Tab.1.center" timestamp="1585939838168">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="232" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1585853779870" />
-    <state width="1310" height="232" key="GridCell.Tab.1.left" timestamp="1585853779870">
+    <state width="1310" height="227" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1585939838168" />
+    <state width="1310" height="227" key="GridCell.Tab.1.left" timestamp="1585939838168">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="232" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1585853779870" />
-    <state width="1310" height="232" key="GridCell.Tab.1.right" timestamp="1585853779886">
+    <state width="1310" height="227" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1585939838168" />
+    <state width="1310" height="227" key="GridCell.Tab.1.right" timestamp="1585939838168">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1310" height="232" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1585853779886" />
+    <state width="1310" height="227" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1585939838168" />
     <state x="75" y="0" key="SettingsEditor" timestamp="1585745750276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

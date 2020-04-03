@@ -20,7 +20,7 @@ public class StateCensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath)throws CSVBuilderException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<StateCodeCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, StateCodeCSV.class);
+            Iterator<StateCensusCsv> csvFileIterator = csvBuilder.getCSVFileIterator(reader, StateCensusCsv.class);
             while (csvFileIterator.hasNext()) {
                 CensusDAO indianCensusDAO = new CensusDAO(csvFileIterator.next());
                 this.censusStateMap.put(CensusDAO.state, indianCensusDAO);
@@ -44,7 +44,7 @@ public class StateCensusAnalyser {
                     CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
     }
 
-    public  int loadStateCode(String STATECODES_CSVFILE) throws CensusAnalyserException {
+    public  int loadStateCode(String STATECODES_CSVFILE) throws CensusAnalyserException, CSVBuilderException {
         try (Reader reader = Files.newBufferedReader(Paths.get(STATECODES_CSVFILE));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<StateCodeCSV> stateCsvIterator = csvBuilder.getCSVFileIterator(reader, StateCodeCSV.class);
@@ -56,7 +56,7 @@ public class StateCensusAnalyser {
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
         } catch (CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(), e.type.name());
+            throw new CSVBuilderException("No of data fields does not match number of headers", CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
@@ -75,17 +75,17 @@ public class StateCensusAnalyser {
         String sortedStateCensusJson = new Gson().toJson(list1);
         return sortedStateCensusJson;
     }
-    public String getStateWiseSortedStateCode() throws CensusAnalyserException {
-        if (censusStateMap == null || censusStateMap.size() == 0) {
-            throw new CensusAnalyserException("No State Data",
-                    CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
-        }
-        Comparator<Map.Entry<String, CensusDAO>> stateCodeComparator = Comparator.comparing(census -> census.getValue().stateName);
-        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(stateCodeComparator);
-        Collection<CensusDAO> list2 = sortedByValue.values();
-        String sortedStateCensusJson = new Gson().toJson(list2);
-        return sortedStateCensusJson;
-    }
+//    public String getStateWiseSortedStateCode() throws CensusAnalyserException {
+//        if (censusStateMap == null || censusStateMap.size() == 0) {
+//            throw new CensusAnalyserException("No State Data",
+//                    CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+//        }
+//        Comparator<Map.Entry<String, CensusDAO>> stateCodeComparator = Comparator.comparing(census -> census.getValue().stateName);
+//        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(stateCodeComparator);
+//        Collection<CensusDAO> list2 = sortedByValue.values();
+//        String sortedStateCensusJson = new Gson().toJson(list2);
+//        return sortedStateCensusJson;
+//    }
     private <E extends CensusDAO> LinkedHashMap<String, CensusDAO> sort(Comparator censusComparator) {
         Set<Map.Entry<String, CensusDAO>> entries = censusStateMap.entrySet();
         List<Map.Entry<String, CensusDAO>> listOfEntries = new ArrayList<Map.Entry<String,CensusDAO>>(entries);
@@ -117,6 +117,18 @@ public class StateCensusAnalyser {
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getStateWiseSortedSPopulation() throws CensusAnalyserException {
+        if (censusStateMap == null || censusStateMap.size() == 0)
+            throw new CensusAnalyserException("No Population in State Data", CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+        Comparator<Map.Entry<String, CensusDAO>> cencusComparator = Comparator.comparing(census -> census.getValue().population);
+        System.out.println(censusStateMap);
+        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(cencusComparator);
+        ArrayList<CensusDAO> list = new ArrayList<CensusDAO>(sortedByValue.values());
+        Collections.reverse(list);
+        String sortedStateCensusJson = new Gson().toJson(list);
+        return sortedStateCensusJson;
     }
 }//class
 
