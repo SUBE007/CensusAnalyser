@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.indiancensusdata.test.CSVStateCensusTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-03T14:39:12" hostname="SUBE-DELL" time="0.77">
+<testsuite name="com.indiancensusdata.test.CSVStateCensusTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-03T16:55:01" hostname="SUBE-DELL" time="9.798">
   <properties/>
-  <testcase name="GivenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue" classname="com.indiancensusdata.test.CSVStateCensusTest" time="0.77"/>
+  <testcase name="givenStateCensusData_WhenSortedOnStateFromFirst_ShouldReturnSortedResult" classname="com.indiancensusdata.test.CSVStateCensusTest" time="9.798"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
