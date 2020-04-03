@@ -2,13 +2,11 @@ package com.censusdata;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
 
 public class StateCensusAnalyser {
@@ -22,7 +20,7 @@ public class StateCensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath)throws CSVBuilderException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<StateCensusCsv> csvFileIterator = csvBuilder.getCSVFileIterator(reader, StateCensusCsv.class);
+            Iterator<StateCodeCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, StateCodeCSV.class);
             while (csvFileIterator.hasNext()) {
                 CensusDAO indianCensusDAO = new CensusDAO(csvFileIterator.next());
                 this.censusStateMap.put(CensusDAO.state, indianCensusDAO);
@@ -98,7 +96,27 @@ public class StateCensusAnalyser {
             }
         return sortedByValue;
         }
-
-
+    public void checkDelimiter(File file) throws CSVBuilderException {
+        Pattern pattern = Pattern.compile("^[\\w ]*,[\\w ]*,[\\w ]*,[\\w ]*");
+        BufferedReader br = null;
+        boolean delimiterResult = true;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                delimiterResult = pattern.matcher(line).matches();
+                if (!delimiterResult) {
+                    throw new CensusAnalyserException("Invalid Delimiter found",
+                            CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.UNABLE_TO_PARSE);
+        } catch (IOException e) {
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }//class
 
