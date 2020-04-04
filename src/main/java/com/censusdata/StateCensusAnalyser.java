@@ -5,13 +5,11 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StateCensusAnalyser {
     int count = 0;
     Map<String, CensusDAO> censusStateMap = new HashMap<String, CensusDAO>();
-    public StateCensusAnalyser() throws CensusAnalyserException {
-        this.censusStateMap = new HashMap<>();
-    }
 
     public void getFileExtension(File file) throws CensusAnalyserException {
         boolean result = false;
@@ -24,32 +22,29 @@ public class StateCensusAnalyser {
                     CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
     }
 
+    public StateCensusAnalyser() {    }
     public enum COUNTRY {INDIA,US}
+    private COUNTRY country;
+
+    public StateCensusAnalyser(COUNTRY country) {
+        this.country = country;
+    }
+
+    public enum SortingMode {AREA,STATE,STATECODE,DENSITY,POPULATION}
 
     public int loadCensusCSVData(COUNTRY country, String... csvFilePath) throws CSVBuilderException, CensusAnalyserException {
         CensusCSVAdapter censusDataLoader = CensusCSVAdapterFactory.getCensusData(country);
         censusStateMap = censusDataLoader.loadCensusCSVData(StateCensusCsv.class, csvFilePath);
         return censusStateMap.size();
     }
-    public String getStateWiseSortedStateCode() throws CensusAnalyserException {
+    public String getSortedCensusData(SortingMode mode) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0)
          throw new CensusAnalyserException("No State Data", CensusAnalyserException.CensusExceptionType.NO_STATE_CODE_DATA);
-        Comparator<Map.Entry<String, CensusDAO>> stateCodeComparator = Comparator.comparing(census -> census.getValue().state);
-        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(stateCodeComparator);
-        Collection<CensusDAO> list2 = sortedByValue.values();
-        String sortedStateCensusJson = new Gson().toJson(list2);
-        return sortedStateCensusJson;
-    }
-
-    public String getStateWiseSortedSPopulationDensity() throws CensusAnalyserException {
-        if (censusStateMap == null || censusStateMap.size() == 0)
-            throw new CensusAnalyserException("No DensityPerSquareKM in StateData", CensusAnalyserException.CensusExceptionType.NO_CENSUS_DATA);
-            Comparator<Map.Entry<String, CensusDAO>> censusComparator = Comparator.comparing(census -> census.getValue().densityPerSqKm);
-            LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(censusComparator);
-            ArrayList<CensusDAO> list = new ArrayList<CensusDAO>(sortedByValue.values());
-            Collections.reverse(list);
-            String sortedStateCensusJson = new Gson().toJson(list);
-            return sortedStateCensusJson;
+        ArrayList censusDTO = censusStateMap.values().stream()
+                .sorted(CensusDAO.getSortComparator(mode))
+                .map(censusDAO -> censusDAO.getCensusDTO(country))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new Gson().toJson(censusDTO);
     }
 
     private <E extends CensusDAO> LinkedHashMap<String, CensusDAO> sort(Comparator censusComparator) {
@@ -84,29 +79,6 @@ public class StateCensusAnalyser {
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getStateWiseSortedSPopulation() throws CensusAnalyserException {
-        if (censusStateMap == null || censusStateMap.size() == 0)
-            throw new CensusAnalyserException("No Population in StateData", CensusAnalyserException.CensusExceptionType.NO_CENSUS_DATA);
-            Comparator<Map.Entry<String, CensusDAO>> cencusComparator = Comparator.comparing(census -> census.getValue().population);
-            System.out.println(censusStateMap);
-            LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(cencusComparator);
-            ArrayList<CensusDAO> list = new ArrayList<CensusDAO>(sortedByValue.values());
-            Collections.reverse(list);
-            String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
-    }
-
-    public String getStateWiseSortedStateArea() throws CensusAnalyserException {
-        if (censusStateMap == null || censusStateMap.size() == 0)
-            throw new CensusAnalyserException("No Area of StateData", CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
-        Comparator<Map.Entry<String, CensusDAO>> censusComparator = Comparator.comparing(census -> census.getValue().areaInSqKm);
-        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(censusComparator);
-        ArrayList<CensusDAO> list = new ArrayList<CensusDAO>(sortedByValue.values());
-        Collections.reverse(list);
-        String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
     }
 
 }//class

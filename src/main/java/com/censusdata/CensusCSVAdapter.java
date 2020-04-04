@@ -22,11 +22,11 @@ public abstract class CensusCSVAdapter {
             if (censusCSVClass.getName().equals("com.censusdata.StateCensusCsv"))
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .map(StateCensusCsv.class::cast)
-                        .forEach(StateCensusCsv -> censusDAOMap.put(StateCensusCsv.getStateName(), new CensusDAO(StateCensusCsv)));
+                        .forEach(StateCensusCsv -> censusDAOMap.put(StateCensusCsv.stateName, new CensusDAO(StateCensusCsv)));
             if (censusCSVClass.getName().equals("com.censusdata.USCensusCSV"))
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .map(USCensusCSV.class::cast)
-                        .forEach(USCensusCSV -> censusDAOMap.put(USCensusCSV.getState(), new CensusDAO(USCensusCSV)));
+                        .forEach(USCensusCSV -> censusDAOMap.put(USCensusCSV.state, new CensusDAO(USCensusCSV)));
             return censusDAOMap;
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.INPUT_OUTPUT_OPERATION_FAILED);

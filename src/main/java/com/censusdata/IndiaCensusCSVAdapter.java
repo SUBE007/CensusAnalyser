@@ -16,7 +16,7 @@ public class IndiaCensusCSVAdapter extends CensusCSVAdapter {
             Iterable<StateCodeCSV> csvIterable = () -> stateCSVIterator;
             StreamSupport.stream(csvIterable.spliterator(), false)
                     .map(StateCodeCSV.class::cast)
-                    .forEach(csvStateCode -> censusDAOMap.put(csvStateCode.getStateName(), new CensusDAO(csvStateCode)));
+                    .forEach(csvStateCode -> censusDAOMap.put(csvStateCode.stName, new CensusDAO(csvStateCode)));
             return censusDAOMap;
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.INPUT_OUTPUT_OPERATION_FAILED);
