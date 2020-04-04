@@ -33,6 +33,21 @@ public class StateCensusAnalyser {
         }
     }
 
+    public int loadUSCensusData(String csvFilePath) throws CSVBuilderException {
+        try (Reader reader= Files.newBufferedReader(Paths.get(csvFilePath));){
+            ICSVBuilder csvBuilder= CSVBuilderFactory.createCSVBuilder();
+            Iterator<USCensusCSV> usCSVIterator = csvBuilder.getCSVFileIterator(reader, USCensusCSV.class);
+            Iterable<USCensusCSV> csvIterable = () -> usCSVIterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .forEach(censusCSV -> censusStateMap.put(censusCSV.getState() ,new CensusDAO(censusCSV)));
+            return this.censusStateMap.size();
+        } catch (IOException e){
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.UNABLE_TO_PARSE);
+        } catch (CSVBuilderException e) {
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
+        }
+    }
+
     public void getFileExtension(File file) throws CensusAnalyserException {
         boolean result = false;
         String fileName = file.getName();

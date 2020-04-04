@@ -2,8 +2,9 @@ package com.censusdata;
 
 public class CensusDAO {
 
-    public String state, areaInSqKm, densityPerSqKm,population,stateCode,srNo,tin,stateName ;
-
+    public String state, stateCode,srNo,tin,stateName ;
+    public int population;
+    public double areaInSqKm, densityPerSqKm;
    public CensusDAO(StateCensusCsv indiaCensusCSV) {
         state = indiaCensusCSV.getStateName();
         areaInSqKm = indiaCensusCSV.getAreaInSqKm();
@@ -15,5 +16,13 @@ public class CensusDAO {
         stateCode = indiaCodeCSV.getStateCode();
         tin = indiaCodeCSV.getTin();
         stateName = indiaCodeCSV.getStateName();
+    }
+
+    public CensusDAO(USCensusCSV censusCSV) {
+        stateCode=censusCSV.getStateId();
+        areaInSqKm=censusCSV.getArea();
+        state=censusCSV.getState();
+        densityPerSqKm=censusCSV.getPopulationDensity();
+        population=censusCSV.getPopulation();
     }
 }

@@ -13,6 +13,7 @@ public class CSVStateCensusTest {
 
     public static final String STATECODES_CSVFILE = "E:\\BridgrLabz\\IndianCensusAnalyser\\src\\main\\resources\\StateCode.csv";
     public static final String STATECENSUS_CSVFILE = "E:\\BridgrLabz\\IndianCensusAnalyser\\src\\main\\resources\\IndianCensusData.csv";
+    public static final String USCENSUSDATA_CSVFILE="E:\\BridgrLabz\\IndianCensusAnalyser\\src\\main\\resources\\USCensusData.csv";
     public static final String WRONG_FILE_PATH = "/Wrongfile.txt";
 
     @Test
@@ -116,6 +117,28 @@ public class CSVStateCensusTest {
         }
     }
 
-}
+    @Test
+    public void givenUsCensusData_WhenLoadedCorrect_ShouldReturnExactCountOfList() throws CensusAnalyserException {
+        try{
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            int count = stateCensusAnalyser.loadUSCensusData(USCENSUSDATA_CSVFILE);
+            Assert.assertEquals(51,count);
+        } catch (CSVBuilderException | CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUsCensusData_WhenLoadedIncorrect_ShouldReturnWrongCountOfList() throws CensusAnalyserException {
+        try{
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            int count = stateCensusAnalyser.loadUSCensusData(USCENSUSDATA_CSVFILE);
+            Assert.assertNotEquals(52,count);
+        } catch (CSVBuilderException | CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+}//class test
 
 
