@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e8006f1-dc9d-40df-bf4d-a675c5a91aff" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/SUBE007.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/SUBE007.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/CensusDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/CensusDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/censusdata/StateCensusAnalyser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/censusdata/StateCensusAnalyser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/indiancensusdata/test/CSVStateCensusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/indiancensusdata/test/CSVStateCensusTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

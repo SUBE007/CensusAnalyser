@@ -29,7 +29,7 @@ public class StateCensusAnalyser {
         } catch (IOException e) {
             throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
-            throw new  CSVBuilderException("UNABLE_TO_PARSE", CSVBuilderException.CsvExceptionType.UNABLE_TO_PARSE);
+            throw new  CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.UNABLE_TO_PARSE);
         }
     }
 
@@ -48,15 +48,14 @@ public class StateCensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(STATECODES_CSVFILE));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<StateCodeCSV> stateCsvIterator = csvBuilder.getCSVFileIterator(reader, StateCodeCSV.class);
-            while (stateCsvIterator.hasNext()) {
-                CensusDAO  censusDAO = new CensusDAO(stateCsvIterator.next());
-                this.censusStateMap.put(censusDAO.stateName, censusDAO);
-            }
+            Iterable<StateCodeCSV> csvIterable = () -> stateCsvIterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .forEach(censusCSV -> censusStateMap.put(censusCSV.getStateCode() ,new CensusDAO(censusCSV)));
             return this.censusStateMap.size();
         } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
         } catch (CSVBuilderException e) {
-            throw new CSVBuilderException("No of data fields does not match number of headers", CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.CsvExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
