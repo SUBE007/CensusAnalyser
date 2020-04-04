@@ -101,6 +101,20 @@ public class CSVStateCensusTest {
         }
     }
 
+    @Test
+    public void givenIndianStateCensusData_WhenSortedStateAreaList_ShouldReturnSortedList() {
+        try {
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            stateCensusAnalyser.loadIndiaCensusData(STATECENSUS_CSVFILE);
+            String sortedCensusData = stateCensusAnalyser.getStateWiseSortedStateArea();
+            CensusDAO[] stateCensuses = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
+            Assert.assertEquals("Maharashtra", stateCensuses[0].state);
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

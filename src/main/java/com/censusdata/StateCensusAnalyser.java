@@ -23,7 +23,7 @@ public class StateCensusAnalyser {
             Iterator<StateCensusCsv> csvFileIterator = csvBuilder.getCSVFileIterator(reader, StateCensusCsv.class);
             while (csvFileIterator.hasNext()) {
                 CensusDAO indianCensusDAO = new CensusDAO(csvFileIterator.next());
-                this.censusStateMap.put(CensusDAO.densityPerSqKm, indianCensusDAO);
+                this.censusStateMap.put(indianCensusDAO.state, indianCensusDAO);
             }
             return this.censusStateMap.size();
         } catch (IOException e) {
@@ -76,6 +76,7 @@ public class StateCensusAnalyser {
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
+
     private <E extends CensusDAO> LinkedHashMap<String, CensusDAO> sort(Comparator censusComparator) {
         Set<Map.Entry<String, CensusDAO>> entries = censusStateMap.entrySet();
         List<Map.Entry<String, CensusDAO>> listOfEntries = new ArrayList<Map.Entry<String,CensusDAO>>(entries);
@@ -86,6 +87,7 @@ public class StateCensusAnalyser {
             }
         return sortedByValue;
         }
+
     public void checkDelimiter(File file) throws CSVBuilderException {
         Pattern pattern = Pattern.compile("^[\\w ]*,[\\w ]*,[\\w ]*,[\\w ]*");
         BufferedReader br = null;
@@ -120,5 +122,17 @@ public class StateCensusAnalyser {
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
+
+    public String getStateWiseSortedStateArea() throws CensusAnalyserException {
+        if (censusStateMap == null || censusStateMap.size() == 0)
+            throw new CensusAnalyserException("No Area of State Data", CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
+        Comparator<Map.Entry<String, CensusDAO>> censusComparator = Comparator.comparing(census -> census.getValue().areaInSqKm);
+        LinkedHashMap<String, CensusDAO> sortedByValue = this.sort(censusComparator);
+        ArrayList<CensusDAO> list = new ArrayList<CensusDAO>(sortedByValue.values());
+        Collections.reverse(list);
+        String sortedStateCensusJson = new Gson().toJson(list);
+        return sortedStateCensusJson;
+    }
+
 }//class
 
