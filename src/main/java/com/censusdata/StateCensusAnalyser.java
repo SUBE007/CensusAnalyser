@@ -34,7 +34,7 @@ public class StateCensusAnalyser {
 
     public int loadCensusCSVData(COUNTRY country, String... csvFilePath) throws CSVBuilderException, CensusAnalyserException {
         CensusCSVAdapter censusDataLoader = CensusCSVAdapterFactory.getCensusData(country);
-        censusStateMap = censusDataLoader.loadCensusCSVData(StateCensusCsv.class, csvFilePath);
+        censusStateMap = censusDataLoader.loadCensusCSVData(StateCensusCSVDTO.class, csvFilePath);
         return censusStateMap.size();
     }
     public String getSortedCensusData(SortingMode mode) throws CensusAnalyserException {
