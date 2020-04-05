@@ -1,5 +1,6 @@
 package com.censusdata;
 
+import com.censusdata.exception.CensusAnalyserException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 

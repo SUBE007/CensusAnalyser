@@ -1,15 +1,22 @@
 package com.censusdata;
 
+import com.censusdata.adapter.CensusCSVAdapter;
+import com.censusdata.dao.CensusDAO;
+import com.censusdata.exception.CSVBuilderException;
+import com.censusdata.exception.CensusAnalyserException;
+import com.censusdata.factory.CSVLoaderFactory;
+import com.censusdata.factory.CensusCSVAdapterFactory;
+import com.censusdata.sort.SortByDensity;
+import com.censusdata.sort.SortByPopulation;
+import com.censusdata.sort.SortParameter;
 import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StateCensusAnalyser {
-    int count = 0;
-    Map<String, CensusDAO> censusStateMap = new HashMap<String, CensusDAO>();
+
 
     public void getFileExtension(File file) throws CensusAnalyserException {
         boolean result = false;
@@ -22,63 +29,103 @@ public class StateCensusAnalyser {
                     CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
     }
 
-    public StateCensusAnalyser() {    }
+    public StateCensusAnalyser() {
+        this.censusMap = new HashMap<>();
+    }
     public enum COUNTRY {INDIA,US}
-    private COUNTRY country;
+    public COUNTRY country;
+    Map<String, CensusDAO> censusMap = null;
 
     public StateCensusAnalyser(COUNTRY country) {
         this.country = country;
+        censusMap = new HashMap<>();
     }
 
     public enum SortingMode {AREA,STATE,STATECODE,DENSITY,POPULATION}
 
     public int loadCensusCSVData(COUNTRY country, String... csvFilePath) throws CSVBuilderException, CensusAnalyserException {
         CensusCSVAdapter censusDataLoader = CensusCSVAdapterFactory.getCensusData(country);
-        censusStateMap = censusDataLoader.loadCensusCSVData(StateCensusCSVDTO.class, csvFilePath);
-        return censusStateMap.size();
+        censusMap = censusDataLoader.loadCensusCSVData(csvFilePath);
+        return censusMap.size();
+    }
+
+    public Map loadCensusCSVData(CSVLoaderFactory.COUNTRY country, String... csvFilePath) throws CensusAnalyserException, CSVBuilderException {
+        CensusCSVAdapter censusAdaptor = CSVLoaderFactory.createAdaptor(country);
+        censusMap = censusAdaptor.loadCensusCSVData(csvFilePath);
+        return censusMap;
+    }
+
+    public String getStateWithSortByParameter(SortParameter.Parameter parameter) throws CensusAnalyserException {
+        if (censusMap == null | censusMap.size() == 0) {
+            throw new CensusAnalyserException("Null file", CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+        }
+        Comparator<CensusDAO> censusCSVComparator = SortParameter.getParameter(parameter);
+        List<CensusDAO> censusDAOS = censusMap.values().stream().collect(Collectors.toList());
+        censusDAOS.sort(censusCSVComparator);
+        List<Object> censusDto = new ArrayList<>();
+        for (CensusDAO censusDAO : censusDAOS
+        ) {
+            censusDto.add(censusDAO.getCensusDTO(country));
+        }
+        String sortedData = new Gson().toJson(censusDAOS);
+        return sortedData;
+    }
+
+    public String getStateWithSortByParameter(ISortBy iSortBy) throws CensusAnalyserException {
+        if (censusMap == null | censusMap.size() == 0) {
+            throw new CensusAnalyserException("Null file", CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+        }
+        Comparator<CensusDAO> censusCSVComparator = iSortBy.getComparator();
+        List<CensusDAO> censusDAOS = censusMap.values().stream().collect(Collectors.toList());
+        censusDAOS.sort(censusCSVComparator);
+        List<Object> censusDto = new ArrayList<>();
+        for (CensusDAO censusDAO : censusDAOS
+        ) {
+            censusDto.add(censusDAO.getCensusDTO(country));
+        }
+        String sortedData = new Gson().toJson(censusDto);
+        return sortedData;
+    }
+
+    public String getStateWithDualSortByParameter() throws CensusAnalyserException {
+        if (censusMap == null | censusMap.size() == 0) {
+            throw new CensusAnalyserException("Null file", CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
+        }
+        Comparator<CensusDAO> PopulationComparator = new SortByPopulation().getComparator();
+        Comparator<CensusDAO> DensityComparator = new SortByDensity().getComparator();
+        List<CensusDAO> censusDAOS = censusMap.values().stream().collect(Collectors.toList());
+        List<CensusDAO> sortedList= sort(censusDAOS, PopulationComparator, DensityComparator);
+        sortedList.forEach(System.out::println);
+        String sortedData = new Gson().toJson(sortedList);
+        return sortedData;
     }
     public String getSortedCensusData(SortingMode mode) throws CensusAnalyserException {
-        if (censusStateMap == null || censusStateMap.size() == 0)
-         throw new CensusAnalyserException("No State Data", CensusAnalyserException.CensusExceptionType.NO_STATE_CODE_DATA);
-        ArrayList censusDTO = censusStateMap.values().stream()
+        if (censusMap == null || censusMap.size() == 0)
+         throw new CensusAnalyserException("No Census Data", CensusAnalyserException.CensusExceptionType.NO_SUCH_FILE_ERROR);
+        ArrayList censusDTO = censusMap.values().stream()
                 .sorted(CensusDAO.getSortComparator(mode))
                 .map(censusDAO -> censusDAO.getCensusDTO(country))
                 .collect(Collectors.toCollection(ArrayList::new));
         return new Gson().toJson(censusDTO);
     }
 
-    private <E extends CensusDAO> LinkedHashMap<String, CensusDAO> sort(Comparator censusComparator) {
-        Set<Map.Entry<String, CensusDAO>> entries = censusStateMap.entrySet();
-        List<Map.Entry<String, CensusDAO>> listOfEntries = new ArrayList<Map.Entry<String,CensusDAO>>(entries);
-         Collections.sort(listOfEntries, censusComparator);
-        LinkedHashMap<String,  CensusDAO> sortedByValue = new LinkedHashMap<String, CensusDAO>(listOfEntries.size());
-        for (Map.Entry<String,  CensusDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-            }
-        return sortedByValue;
-        }
-
-    public void checkDelimiter(File file) throws CensusAnalyserException {
-        Pattern pattern = Pattern.compile("^[\\w ]*,[\\w ]*,[\\w ]*,[\\w ]*");
-        BufferedReader br = null;
-        boolean delimiterResult = true;
-        try {
-            br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                delimiterResult = pattern.matcher(line).matches();
-                if (!delimiterResult) {
-                    throw new CensusAnalyserException("Invalid Delimiter found",
-                            CensusAnalyserException.CensusExceptionType.INVALID_DELIMITER);
+    private List sort(List<CensusDAO> censusDAOS, Comparator<CensusDAO> populationComparater, Comparator<CensusDAO> densityComparater) {
+        for (int i = 0; i < censusDAOS.size() - 1; i++) {
+            for (int j = 0; j < censusDAOS.size() - i - 1; j++) {
+                CensusDAO censusCSV1 = censusDAOS.get(j);
+                CensusDAO censusCSV2 = censusDAOS.get(j + 1);
+                if (populationComparater.compare(censusCSV1, censusCSV2) == 0) {
+                    if (densityComparater.compare(censusCSV1, censusCSV2) > 0) {
+                        censusDAOS.set(j, censusCSV2);
+                        censusDAOS.set(j + 1, censusCSV1);
+                    }
+                } else if (populationComparater.compare(censusCSV1, censusCSV2) > 0) {
+                    censusDAOS.set(j, censusCSV2);
+                    censusDAOS.set(j + 1, censusCSV1);
                 }
             }
-        } catch (FileNotFoundException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.UNABLE_TO_PARSE);
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
+        return censusDAOS;
     }
 
 }//class

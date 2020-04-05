@@ -1,5 +1,8 @@
 package com.censusdata;
 
+import com.censusdata.exception.CSVBuilderException;
+import com.censusdata.exception.CensusAnalyserException;
+
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;

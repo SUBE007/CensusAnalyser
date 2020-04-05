@@ -1,6 +1,10 @@
 package com.indiancensusdata.test;
 
 import com.censusdata.*;
+import com.censusdata.dao.CensusDAO;
+import com.censusdata.dto.StateCensusCSVDTO;
+import com.censusdata.exception.CSVBuilderException;
+import com.censusdata.exception.CensusAnalyserException;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +26,7 @@ public class CSVStateCensusTest {
     StateCensusAnalyser india_censusAnalyser = new StateCensusAnalyser(INDIA);
     StateCensusAnalyser us_censusAnalyser = new StateCensusAnalyser(US);
     @Test
-    public void givenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws  CensusAnalyserException  {
+    public void givenTheStateCensusCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() throws CensusAnalyserException {
 
         try {
             int count = censusAnalyser.loadCensusCSVData(INDIA, STATECENSUS_CSVFILE);
@@ -52,16 +56,6 @@ public class CSVStateCensusTest {
             CensusDAO[] censusCSV = new Gson( ).fromJson(sortedCensusData, CensusDAO[].class);
             Assert.assertEquals("West Bengal", censusCSV[28].state);
         } catch (CensusAnalyserException | CSVBuilderException e) {
-            e.printStackTrace( );
-        }
-    }
-
-    @Test
-    public void GivenTheStateCodeCSVFile_WhenCorrect_ButDelimiterIncorrect_ReturnsCensusAnalyserException() throws IOException {
-        try {
-            File delimiterCheck = new File(STATECENSUS_CSVFILE);
-            censusAnalyser.checkDelimiter(delimiterCheck);
-          } catch (CensusAnalyserException  e) {
             e.printStackTrace( );
         }
     }
@@ -151,7 +145,6 @@ public class CSVStateCensusTest {
         }
     }
 
-
     @Test
     public void givenUSStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList() {
         try {
@@ -163,6 +156,7 @@ public class CSVStateCensusTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenUSStateCensusData_WhenSortedOnPopulation_ShouldReturnSortedList_2() {
         try {
