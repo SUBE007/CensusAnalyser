@@ -26,7 +26,7 @@ public abstract class CensusCSVAdapter {
             if (censusCSVClass.getName().equals("com.censusdata.USCensusCSV"))
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .map(USCensusCSV.class::cast)
-                        .forEach(USCensusCSV -> censusDAOMap.put(USCensusCSV.state, new CensusDAO(USCensusCSV)));
+                        .forEach(USCensusCSV -> censusDAOMap.put(USCensusCSV.stateId, new CensusDAO(USCensusCSV)));
             return censusDAOMap;
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.CensusExceptionType.INPUT_OUTPUT_OPERATION_FAILED);

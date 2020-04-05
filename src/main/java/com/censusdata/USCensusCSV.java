@@ -38,6 +38,9 @@ public class USCensusCSV {
         this.populationDensity=densityPerSqKm;
         this.stateId=stateCode;
 
+
     }
+
+
 
 }
